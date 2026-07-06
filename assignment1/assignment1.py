@@ -50,6 +50,8 @@ class RepeatRequest:
 class StudentReport:
     best_student: str
     mean_score: Decimal
+
+
 class DecimalTools:
     @staticmethod
     def from_value(value: Any, *, allow_string: bool = True) -> Decimal:
@@ -95,6 +97,7 @@ def hello() -> str:
 def greet(name: str) -> str:
     return f"Hello, {name}!"
 
+
 class Calculator:
     def __init__(self):
         self.operations: dict[str, Operation] = {}
@@ -102,7 +105,7 @@ class Calculator:
     def register(self, operation: Operation):
         self.operations[operation.name] = operation
 
-    def calc(self, num1: Any, num2: Any, operation_name: str) -> CalcResult:
+    def calc(self, num1: Any, num2: Any, operation_name: str = "multiply") -> CalcResult:
         operation = self.operations.get(operation_name)
 
         if operation is None:
@@ -118,7 +121,7 @@ class Calculator:
             if operation.block_zero and right == 0:
                 return CalcResult(
                     success=False,
-                    error="Cannot divide by zero"
+                    error="You can't divide by 0!"
                 )
 
             return CalcResult(
@@ -162,7 +165,7 @@ def build_calculator() -> Calculator:
 calculator = build_calculator()
 
 
-def calc(num1, num2, operation):
+def calc(num1, num2, operation="multiply"):
     return calculator.calc(num1, num2, operation)
 
 
@@ -219,10 +222,10 @@ def data_type_conversion(value: Any, target_type: str) -> ConversionResult:
             value=converter(value)
         )
 
-    except (ValueError, TypeError) as error:
+    except (ValueError, TypeError):
         return ConversionResult(
             success=False,
-            error=f"Can't convert {value!r} to {key}: {error}"
+            error=f"You can't convert {value} into a {key}."
         )
 
 
@@ -581,12 +584,14 @@ class PigLatinEngine:
 def pig_latin(text):
     return PigLatinEngine.translate(text)
 
+
 def run_greeting_examples():
     print(hello())
     print(greet("Graylan"))
 
 
 def run_calculator_examples():
+    print(calc(10, 5))
     print(calc(10, 5, "add"))
     print(calc(10, 5, "subtract"))
     print(calc(10, 5, "multiply"))

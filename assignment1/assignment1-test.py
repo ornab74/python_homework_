@@ -37,7 +37,7 @@ def test_calc():
 
     result = a1.calc(10, 0, "divide")
     assert result.success is False
-    assert result.error == "You can't divide by zero!"
+    assert result.error == "You can't divide by 0!"
 
     result = a1.calc("first", "second", "multiply")
     assert result.success is False
